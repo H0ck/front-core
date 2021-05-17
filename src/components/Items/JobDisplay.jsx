@@ -16,7 +16,7 @@ const JobDisplay = ({ job, resume }) => {
       }
     
       useEffect(() => {
-        loadResult()
+       // loadResult()
       }, [])
 
 

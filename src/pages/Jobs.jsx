@@ -11,6 +11,7 @@ const Jobs = () => {
   const [fields, setFields] = useState(
     {
       "title": "My Job title",
+      "framework": "h0ck-framework-testing",
       "configuration.limits.parallelExecutions": "10",
       "configuration.limits.requestPerSecond": "1",
       "configuration.limits.virtualUserExecutions": "1",
@@ -127,7 +128,13 @@ const Jobs = () => {
           <Form.Label>Title</Form.Label>
           <Form.Control onChange={onChange} value={fields["title"]} name={"title"} size="sm" type="text" placeholder="My job title" />
         </Form.Group>
-
+        <br></br>
+        <Form.Label>Framework</Form.Label>
+        <Form.Control onChange={onChange} value={fields["framework"]} name={"framework"} size="sm" as="select">
+                <option value="h0ck-framework-testing">Testing Framework</option>
+                <option value="h0ck-framework-scraping">Scraping Framework</option>
+                <option value="h0ck-framework-core">Core Framework</option>
+              </Form.Control>
         <br></br>
         <Form.Label>Code</Form.Label>
         <CodeMirrorComponent type={'javascript'} defaultCode={"module.exports.main = async function(params){ \n return params \n }"}></CodeMirrorComponent>
