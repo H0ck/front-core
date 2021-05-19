@@ -4,12 +4,13 @@ import JobDisplay from '../components/Items/JobDisplay'
 
 
 const Dashboard = () => {
-  const [jobsResumed, setJobs] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
-  function loadJobs() {
-    axios.get("http://localhost:10000/api/v1/jobs/resumed").then(jobs => {
+
+  async function loadJobs() {
+    axios.get("http://localhost:10000/api/v1/jobs").then(async(jobs) => {
       setJobs(jobs.data)
-    });
+    })
   }
 
   useEffect(() => {
@@ -29,8 +30,8 @@ const Dashboard = () => {
       }}
     >
       <h1>Dashboard</h1>
-      {jobsResumed.jobs?.map(job=>{
-        return <JobDisplay key={job.id} job={job} resume={jobsResumed.resumes[job.id]}></JobDisplay>
+      {jobs?.map(job => {
+        return <JobDisplay key={job.id} job={job}></JobDisplay>
       })}
     </div>
   );

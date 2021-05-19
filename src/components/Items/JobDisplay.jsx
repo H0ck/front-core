@@ -5,34 +5,24 @@ import { Card, ProgressBar, Table } from 'react-bootstrap'
 import axios from 'axios';
 
 
-const JobDisplay = ({ job, resume }) => {
+const JobDisplay = ({ job }) => {
 
-    const [Result, setResult] = useState([])
+    const [resume, setResume] = useState([])
     function loadResult() {
-        axios.get("http://localhost:10000/api/v1/jobs/" + job.id +"/results").then(result => {
-          setResult(result.data)
-          console.log("RESULTS", result) 
+        axios.post("http://localhost:10000/api/v1/jobs/" + job.id +"/resultProcessors/resumeVariances/process").then(result => {
+          setResume(result.data)
+          console.log(result.data)
         });
+
+
       }
     
       useEffect(() => {
-       // loadResult()
+        loadResult()
       }, [])
 
 
-      console.log(Result)
-      let resultDemo = Result?.map(res=>{
-          
-       return  <div>
-          <span>{res.params?.profile} - </span> 
-          <span>{res.params?.userType} - </span>
-          <span>{res.timings.responseAverage} </span>
 
-           </div>
-        
-    });
-    let demo = <> {resultDemo} </>
-    console.log(job)
     return (
         <>
             <Card>
@@ -69,7 +59,8 @@ const JobDisplay = ({ job, resume }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Object.keys(resume.fields).map(field=>{
+                            {
+                            resume?.fields && Object.keys(resume?.fields).map(field=>{
                                 let fieldValue = resume.fields[field];
                                 return <tr>
                                 <td>{field}</td>
@@ -82,9 +73,7 @@ const JobDisplay = ({ job, resume }) => {
 
                     </Table>
                         
-                    {demo
-                    }
-
+              
                 </Card.Body>
             </Card>
             <br></br>
