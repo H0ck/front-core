@@ -8,7 +8,7 @@ const Dashboard = () => {
 
 
   async function loadJobs() {
-    axios.get("http://localhost:10000/api/v1/jobs").then(async(jobs) => {
+    axios.get(process.env.REACT_APP_CORE_API  + "/api/v1/jobs").then(async(jobs) => {
       setJobs(jobs.data)
     })
   }

@@ -68,7 +68,7 @@ const Jobs = () => {
       _.set(job, entry[0], entry[1]);
     })
     job.code = document.querySelector(".CodeMirror").CodeMirror.getValue();
-    axios.post("http://localhost:10000/api/v1/jobs", job).then(response => {
+    axios.post(process.env.REACT_APP_CORE_API  + "/api/v1/jobs", job).then(response => {
       console.log("Job created: ", response)
     }).catch(err => {
       console.error("Error creating JOB: " + err);

@@ -13,13 +13,13 @@ const JobDisplay = ({ job }) => {
     const [processorsResult, setProcessorsResults] = useState([])
 
     async function loadResult() {
-        axios.post("http://localhost:10000/api/v1/jobs/" + job.id + "/resultProcessors/resumeVariances/process").then(result => {
+        axios.post(process.env.REACT_APP_CORE_API + "/api/v1/jobs/" + job.id + "/resultProcessors/resumeVariances/process").then(result => {
             setResume(result.data)
             console.log(result.data)
         });
 
         let processorsResult = await Promise.all(job.resultProcessors.map(async (resultProcessor) => {
-            let resultProcessed = (await axios.post("http://localhost:10000/api/v1/jobs/" + job.id + "/resultProcessors/" + resultProcessor.name + "/process")).data
+            let resultProcessed = (await axios.post(process.env.REACT_APP_CORE_API  + "/api/v1/jobs/" + job.id + "/resultProcessors/" + resultProcessor.name + "/process")).data
             return { name: resultProcessor.name, result: resultProcessed }
         }))
         setProcessorsResults(processorsResult)
