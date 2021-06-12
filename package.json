@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
-    "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
@@ -25,8 +24,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "env-cmd -f development.env react-scripts start",
-    "build": "env-cmd -f production.env react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "buildToInfra": "BUILD_PATH='../infrastructure/frontfiles' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, ProgressBar, Table, Button, Collapse } from 'react-bootstrap'
 import axios from 'axios';
 import TableFromJSON from '../Extras/TableFromJSON';
+import getInfrastructure from '../../infrastructure';
 
 
 const JobDisplay = ({ job }) => {
@@ -13,16 +14,20 @@ const JobDisplay = ({ job }) => {
     const [processorsResult, setProcessorsResults] = useState([])
 
     async function loadResult() {
-        axios.post(process.env.REACT_APP_CORE_API + "/api/v1/jobs/" + job.id + "/resultProcessors/resumeVariances/process").then(result => {
+        let infrastructure = await getInfrastructure();
+        axios.post(infrastructure.h0ck_core + "/api/v1/jobs/" + job.id + "/resultProcessors/resumeVariances/process").then(result => {
             setResume(result.data)
             console.log(result.data)
         });
 
-        let processorsResult = await Promise.all(job.resultProcessors.map(async (resultProcessor) => {
-            let resultProcessed = (await axios.post(process.env.REACT_APP_CORE_API  + "/api/v1/jobs/" + job.id + "/resultProcessors/" + resultProcessor.name + "/process")).data
-            return { name: resultProcessor.name, result: resultProcessed }
-        }))
-        setProcessorsResults(processorsResult)
+        if (job.resultProcessors){
+            let processorsResult = await Promise.all(job.resultProcessors.map(async (resultProcessor) => {
+                let resultProcessed = (await axios.post(infrastructure.h0ck_core  + "/api/v1/jobs/" + job.id + "/resultProcessors/" + resultProcessor.name + "/process")).data
+                return { name: resultProcessor.name, result: resultProcessed }
+            }))
+            setProcessorsResults(processorsResult)
+        }
+        
     }
 
     useEffect(() => {

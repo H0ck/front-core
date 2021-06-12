@@ -3,6 +3,7 @@ import { Button, Form, InputGroup, FormLabel, Dropdown, Card, Row, Col } from 'r
 import CodeMirrorComponent from '../components/Extras/CodeMirrorComponent';
 import _ from 'lodash';
 import axios from 'axios';
+import getInfrastructure from '../infrastructure';
 
 
 const Jobs = () => {
@@ -61,14 +62,15 @@ const Jobs = () => {
     setParamsCount(paramsCount - 1)
   }
 
-  function createJob() {
+  async function createJob() {
+    let infrastructure = await getInfrastructure();
     let job = {};
     console.log(job)
     Object.entries(fields).forEach((entry) => {
       _.set(job, entry[0], entry[1]);
     })
     job.code = document.querySelector(".CodeMirror").CodeMirror.getValue();
-    axios.post(process.env.REACT_APP_CORE_API  + "/api/v1/jobs", job).then(response => {
+    axios.post(infrastructure.h0ck_core  + "/api/v1/jobs", job).then(response => {
       console.log("Job created: ", response)
     }).catch(err => {
       console.error("Error creating JOB: " + err);

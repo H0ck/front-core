@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import JobDisplay from '../components/Items/JobDisplay'
+import getInfrastructure from '../infrastructure';
+
+getInfrastructure().then(x=>{
+  console.log(x)
+})
 
 
 const Dashboard = () => {
@@ -8,7 +13,8 @@ const Dashboard = () => {
 
 
   async function loadJobs() {
-    axios.get(process.env.REACT_APP_CORE_API  + "/api/v1/jobs").then(async(jobs) => {
+    let infrastructure = await getInfrastructure();
+    axios.get(infrastructure.h0ck_core  + "/api/v1/jobs").then(async(jobs) => {
       setJobs(jobs.data)
     })
   }
