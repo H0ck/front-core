@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# H0ck Framework - React Frontend 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Repository for H0ck Framework Frontend, a interface that uses H0ck Core API to create, manage and show the result of Jobs.
 
 ## Available Scripts
 
@@ -29,6 +29,11 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `yarn buildToInfra`
+Build the app for production environment to a folder called 'infrastructure' outside the root path. This is intended for building the project before deploying to AWS S3.
+
+This command also takes in consideration the environment variables. This is used in the deployment to populate the H0ck Core API in the infrastructure.json file.
+
 ### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
@@ -39,32 +44,11 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Views
+The frontend currently has 2 implemented views. All the views uses the header component where the menu of the frontend is showed.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Job creation
+This view uses the component Jobs.jsx. In this component, there is a state where the job data is stored on every change. When the sumbit button is clicked, all the data of the state is sent with a POST request to the H0ck Core API.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Job visualization
+This view uses the component Dashboard.jsx. In this component, the state stores all the current jobs that the H0ck Core API has. For each of the Jobs, an instance of the JobDisplay.jsx component is created. This is the component that shows the data, the params and each one of the resultProcessors for every job.

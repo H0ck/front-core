@@ -23,9 +23,7 @@ const Jobs = () => {
   );
 
   function onChange(e) {
-
     setFields({ ...fields, [e.target.name]: e.target.value })
-
   }
 
   useEffect(() => {
